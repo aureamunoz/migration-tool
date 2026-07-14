@@ -116,17 +116,16 @@ public class AnalyzeCommand implements Runnable {
         }
 
         String jdtLsPathString = Optional.ofNullable(jdtLsPath)
-                .or(() -> Optional.ofNullable(ConfigProvider.getConfig().getValue("analyzer.jdt-ls-path", String.class)))
+                .or(() -> ConfigProvider.getConfig().getOptionalValue("analyzer.jdt-ls-path", String.class))
                 .map(p -> resolvePath(p).toString())
                 .orElse(null);
 
         String jdtWksString = Optional.ofNullable(jdtWorkspace)
-                .or(() -> Optional
-                        .ofNullable(ConfigProvider.getConfig().getValue("analyzer.jdt-workspace-path", String.class)))
+                .or(() -> ConfigProvider.getConfig().getOptionalValue("analyzer.jdt-workspace-path", String.class))
                 .map(p -> resolvePath(p).toString())
                 .orElse(null);
 
-        String lsCmd = Optional.ofNullable(ConfigProvider.getConfig().getValue("analyzer.jdt-ls-command", String.class))
+        String lsCmd = ConfigProvider.getConfig().getOptionalValue("analyzer.jdt-ls-command", String.class)
                 .orElse(null);
 
         String openRewriteMavenPluginVersion = Optional
